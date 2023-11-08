@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My React App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: antiquewhite;
+      margin: 0;
+      padding: 0;
+    }
+
+    .like_button_container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    button {
+      background-color: #1877f2;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      border-bottom: 1px solid black;
+    }
+
+    button:hover {
+      background-color: #1157d9;
+    }
+  </style>
+</head>
+<body>
+  <div id="like_button_container"></div>
+  <div class="like_button_container" data-comment-id="!"></div>
+  <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+  <script>
+    'use strict';
+
+    const e = React.createElement;
+
+    class LikeButton extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { liked: false };
+      }
+
+      render() {
+        if (this.state.liked) {
+          return 'Тебе нравится это?!?!?!?!??!?!?!?!?!?!??!?!?!?!??!?!?!?!?!??!?!?!??';
+        }
+
+        return e(
+          'button',
+          { onClick: () => this.setState({ liked: true }) },
+          'Лайк'
+        );
+      }
+    }
+
+    document.querySelectorAll('.like_button_container').forEach(container => {
+      const commentID = container.getAttribute('data-comment-id');
+      ReactDOM.render(
+        e(LikeButton, { commentID: commentID }),
+        container
+      );
+    });
+  </script>
+</body>
+</html>
